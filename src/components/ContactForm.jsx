@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { TextField, Button, Typography, CircularProgress, Paper, Box } from '@mui/material';
@@ -25,7 +25,7 @@ function ContactForm() {
   const fetchContact = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://54.175.208.182:80/contacts/${id}`);
+      const response = await axios.get(`${import.meta.env.VITE_READ}/contacts/${id}`);
       setContact(response.data);
     } catch (error) {
       console.error('Error fetching contact:', error);
@@ -52,9 +52,9 @@ function ContactForm() {
     setLoading(true);
     try {
       if (id) {
-        await axios.put(`http://54.160.95.83:80/contacts/${id}`, contact);
+        await axios.put(`${import.meta.env.VITE_UPDATE}/contacts/${id}`, contact);
       } else {
-        await axios.post('http://54.198.41.75:80/contacts', contact);
+        await axios.post(`${import.meta.env.VITE_CREATE}/contacts`, contact);
       }
       navigate('/');
     } catch (error) {

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Grid, Button, Typography } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import ContactItem from './ContactItem';
 
 function ContactList() {
@@ -13,7 +13,7 @@ function ContactList() {
 
   const fetchContacts = async () => {
     try {
-      const response = await axios.get('http://54.175.208.182:80/contacts');
+      const response = await axios.get(`${import.meta.env.VITE_READ}/contacts`);
       setContacts(response.data);
     } catch (error) {
       console.error('Error fetching contacts:', error);
@@ -22,7 +22,7 @@ function ContactList() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://18.210.18.128:80/contacts/${id}`);
+      await axios.delete(`${import.meta.env.VITE_DELETE}/contacts/${id}`);
       fetchContacts();
     } catch (error) {
       console.error('Error deleting contact:', error);
